@@ -12,6 +12,9 @@ do
     else if (x == "maths")
     {
         QuizzQuestions.SetMathsQuestions();
+    }else
+    {
+        Console.WriteLine("eh :D");
     }
 
 

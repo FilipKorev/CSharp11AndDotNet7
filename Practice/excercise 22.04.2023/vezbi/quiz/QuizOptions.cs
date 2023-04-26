@@ -7,18 +7,7 @@ using System.Threading.Tasks;
 
 namespace quiz
 {
-    internal class QuizOptions
-    {
-        public QuizOptions(bool geography, bool maths)
-        {
-            Geography = false;
-            Maths = false;
-        }
-
-        public bool Geography { get; set; }
-        public bool Maths { get; set; }
-    }
-
+   
     public class Options
     {
         public static string QOptions()
