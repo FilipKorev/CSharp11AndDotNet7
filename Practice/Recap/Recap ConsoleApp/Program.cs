@@ -8,3 +8,6 @@ Student studentA = new Student("filip", 5);
 studentA.SetAge(21);
 string intro = studentA.Introduce();
 Console.WriteLine(intro);
+
+StudentProfessorTest test = new StudentProfessorTest();
+test.Mainn();
