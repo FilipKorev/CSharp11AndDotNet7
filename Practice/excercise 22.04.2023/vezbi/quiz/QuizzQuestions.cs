@@ -10,7 +10,6 @@ namespace quiz
     public static class QuizzQuestions
     {
         public static Question[] Questions { get;private set; }
-
         public static void SetGeographyQuestions()
         {
             Questions = new Question[]

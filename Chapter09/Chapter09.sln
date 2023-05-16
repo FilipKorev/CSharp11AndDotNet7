@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkingWithSerialization", "WorkingWithSerialization\WorkingWithSerialization.csproj", "{E85C4989-A508-4355-AC5F-497A782A1936}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp", "WinFormsApp\WinFormsApp.csproj", "{AB9BB854-C702-4AE9-8133-668A5F1A3AB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E85C4989-A508-4355-AC5F-497A782A1936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E85C4989-A508-4355-AC5F-497A782A1936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E85C4989-A508-4355-AC5F-497A782A1936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E85C4989-A508-4355-AC5F-497A782A1936}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB9BB854-C702-4AE9-8133-668A5F1A3AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9BB854-C702-4AE9-8133-668A5F1A3AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9BB854-C702-4AE9-8133-668A5F1A3AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9BB854-C702-4AE9-8133-668A5F1A3AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0307AD0-7221-4905-98DE-25A41279F10B}
+	EndGlobalSection
+EndGlobal

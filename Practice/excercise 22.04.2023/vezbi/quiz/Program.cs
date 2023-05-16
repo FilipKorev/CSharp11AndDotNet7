@@ -2,7 +2,10 @@
 using quiz;
 using System.Security.Cryptography.X509Certificates;
 using static System.Net.Mime.MediaTypeNames;
-do
+
+string newGame = "";
+
+while (newGame != "no")
 {
     string x = Options.QOptions();
     if (x == "geography")
@@ -40,6 +43,7 @@ do
     }
 
     Console.WriteLine("Would you like to play again? yes/no");
-    string newGame = Console.ReadLine();
-    
-} while (true);
+    newGame = Console.ReadLine();
+}
+
+ 
