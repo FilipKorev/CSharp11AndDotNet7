@@ -22,6 +22,14 @@ namespace WinFormsApp
                 string jsonText = File.ReadAllText(this.openFileDialog1.FileName);
                 List<Person>? people = JsonConvert.DeserializeObject<List<Person>>(jsonText);
 
+                if (people != null)
+                {
+                    this.label1.Text = "";
+                    foreach (var item in people)
+                    {
+                        this.label1.Text += item.FirstName + " ";
+                    }
+                }
             }
         }
     }
