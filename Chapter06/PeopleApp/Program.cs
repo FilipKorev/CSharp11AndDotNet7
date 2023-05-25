@@ -39,8 +39,24 @@ static void Harry_Shout(object? sender, EventArgs e)
     WriteLine($"{p.Name} is this angry: {p.AngerLevel}.");
 }
 
-harry.Shout = Harry_Shout;
+static void Harry_Shout2(object? sender, EventArgs e)
+{
+    if (sender is null) return;
+    Person? p = sender as Person;
+    if (p is null) return;
+
+    WriteLine($"Stop it!");
+}
+
+harry.Shout += Harry_Shout;
+harry.Shout += Harry_Shout2;
+
 harry.Poke();
 harry.Poke();
 harry.Poke();
 harry.Poke();
+
+
+IPlayable player = new DvdPlayer();
+player.play();
+player.pause();

@@ -1,6 +1,6 @@
 ﻿namespace Packt.Shared
 {
-    public class Person : Object
+    public class Person : Object, IComparable<Person>
     {
         public string? Name { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -10,7 +10,7 @@
             WriteLine($"{Name} was born on a {DateOfBirth:dddd}.");
         }
 
-        public EventHandler? Shout;
+        public event EventHandler? Shout;
         public int AngerLevel;
 
         public void Poke()
@@ -23,6 +23,11 @@
                     Shout(this, EventArgs.Empty);
                 }
             }
+        }
+
+        public int CompareTo(Person? other)
+        {
+            throw new NotImplementedException();
         }
     }
 }
