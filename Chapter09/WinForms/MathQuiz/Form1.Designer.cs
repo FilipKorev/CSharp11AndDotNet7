@@ -125,7 +125,7 @@
             sum.Name = "sum";
             sum.Size = new Size(100, 39);
             sum.TabIndex = 1;
-            sum.ValueChanged += checkAnswer;
+            //sum.ValueChanged += checkAnswer;
             sum.Click += answer_Enter;
             sum.Enter += answer_Enter;
             // 
@@ -339,8 +339,9 @@
             PerformLayout();
         }
 
-        #endregion
 
+
+        #endregion
         private Label timeLabel;
         private Label label1;
         private Label plusLeftLabel;
