@@ -6,7 +6,23 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem.Vehicles
 {
-    internal class Person
+    public class Person
     {
+        public string Embg { get; set; }
+        public string Name { get; set; }
+        public string Surename { get; set; }
+        public int Age { get; set; }
+        public string Address { get; set; }
+
+        public Person() { }
+
+        public Person(string embg, string name, string surename, int age, string address)
+        {
+            Embg = embg;
+            Name = name;
+            Surename = surename;
+            Age = age;
+            Address = address;
+        }
     }
 }

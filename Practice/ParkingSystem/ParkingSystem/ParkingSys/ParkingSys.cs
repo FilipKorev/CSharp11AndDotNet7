@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem.ParkingSys
 {
-    internal class ParkingSys
+    public class ParkingSys
     {
+        public List<Parking> Parkings { get; set; } = new List<Parking>();
+        public ParkingSys() { }
+
+        public ParkingSys(List<Parking> parkings)
+        {
+            Parkings = parkings;
+        }
     }
 }

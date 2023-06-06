@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace ParkingSystem.Vehicles
 {
-    internal class Lorry
+    internal class Lorry : Vehicle
     {
+        public int Capacity { get; set; }
+        public Lorry(): base() { }
+
+        public Lorry(int capacity, string model, int productionYear, Person owner, int weight, int width, string fuelType, int passengersNo) : base(model, productionYear, owner, weight, width, fuelType, passengersNo)
+        {
+            Capacity = capacity;
+        }
+        public override int isEconomic()
+        {
+            return base.isEconomic();
+        }
     }
 }
