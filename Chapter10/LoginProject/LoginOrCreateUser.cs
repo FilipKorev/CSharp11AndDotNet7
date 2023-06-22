@@ -1,11 +1,6 @@
 ﻿using LoginProject.Models;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
+using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace LoginProject
 {
@@ -29,7 +24,7 @@ namespace LoginProject
             bool _isLoginCorrect = false;
             do
             {
-                
+
                 Console.WriteLine("Enter username");
                 _username = Console.ReadLine();
 
@@ -39,15 +34,16 @@ namespace LoginProject
                 if (isUsernameAllowed(_username) && isPasswordAllowed(_password))
                 {
                     User loggedInUser;
-                    using(
-                        LoginContext context = new LoginContext())
+                    using (LoginContext context = new LoginContext())
                     {
-                        loggedInUser = context.users.FirstOrDefault(u => u.Username == _username && u.Password == _password);
-                        //loggedInUser = context.users.Where(u => u.Username == _username && u.Password == _password).FirstOrDefault();
+                        loggedInUser = context.users.Include(u => u.Role).FirstOrDefault(u => u.Username == _username && u.Password == _password);
+                        //LoggedInUser = context.users.Where(u => u.Username == _username && u.Password == _password).FirstOrDefault();
                     }
-                    if(loggedInUser != null)
+                    if (loggedInUser != null)
                     {
-                        Console.WriteLine($"Welcome {loggedInUser.Username}");
+                        Console.WriteLine($"Welcome {loggedInUser.Username} you are {loggedInUser.Role.RoleName}");
+
+                        ChooseAction(loggedInUser.Role.RoleName, loggedInUser.ID);
                     }
                     else
                     {
@@ -69,6 +65,8 @@ namespace LoginProject
 
             } while (!_isLoginCorrect);
         }
+
+
 
         /// <summary>
         /// user create method
@@ -98,19 +96,19 @@ namespace LoginProject
                 if (isUsernameAllowed(_username) && isPasswordAllowed(_password) && _password == _confirmPassword)
                 {
                     User createUser;
-                    using(LoginContext context = new LoginContext())
+                    using (LoginContext context = new LoginContext())
                     {
                         createUser = context.users.FirstOrDefault(cu => cu.Username == _username);
-                        if(createUser == null)
+                        if (createUser == null)
                         {
                             Role role = context.Roles.FirstOrDefault(r => r.RoleName == (RoleName)_role);
-                            if(role == null)
+                            if (role == null)
                             {
                                 role = context.Roles.FirstOrDefault(r => r.RoleName == (RoleName)2);
                             }
                             context.users.Add(new User() { Username = _username, Password = _password, Role = role });
                             int changes = context.SaveChanges();
-                            if(changes > 0)
+                            if (changes > 0)
                             {
                                 Login();
                             }
@@ -173,6 +171,251 @@ namespace LoginProject
                 return true;
             }
             return false;
+        }
+
+        private static void ChooseAction(RoleName rolename, Guid userId)
+        {
+            int action = 0;
+
+            switch (rolename)
+            {
+                case RoleName.Admin:
+                case RoleName.VIP:
+
+                    {
+                        Console.WriteLine("Available actions: 1. List users, 2.Delete, 3.Edit , 4.Exit");
+                        Console.WriteLine("Example: 1");
+
+                        try
+                        {
+                            action = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("__________exception__________");
+                            Console.WriteLine(ex.Message);
+                            ChooseAction(rolename, userId);
+                        }
+                        ActionLoader(action, rolename, userId);
+                    }
+                    break;
+                case RoleName.Guest:
+                case RoleName.Regular:
+                    {
+                        Console.WriteLine("Available actions:  2.Delete,3.edit, 4.Exit");
+                        Console.WriteLine("Example: 2");
+
+                        try
+                        {
+                            action = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("__________exception__________");
+                            Console.WriteLine(ex.Message);
+                            ChooseAction(rolename, userId);
+                        }
+                        ActionLoader(action, rolename, userId);
+                    }
+                    break;
+
+
+            }
+        }
+
+
+        private static void ActionLoader(int action, RoleName rolename, Guid userId)
+        {
+            switch (action)
+            {
+                case 1:
+                    {
+                        if (rolename != RoleName.Guest || rolename != RoleName.Regular)
+                        {
+                            using (LoginContext context = new LoginContext())
+                            {
+                                List<User> users = context.users.Include(u => u.Role).ToList();
+                                if (users == null)
+                                {
+                                    Console.WriteLine("No users Found");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("| {0,5} | {1,15} | {2,10} |", "nr.", "Username", "Role");
+                                }
+                                foreach (User user in users)
+                                {
+                                    Console.WriteLine("----------------------------------------");
+                                    Console.WriteLine("| {0,5} | {1,15} | {2,10} |", users.IndexOf(user) + 1, user.Username, user.Role.RoleName);
+
+                                }
+                            }
+                        }
+                        ChooseAction(rolename, userId);
+                    }
+                    break;
+                case 2:
+                    {
+                        if (rolename == RoleName.Admin)
+                        {
+                            Console.WriteLine("Enter the username you want to delete");
+                            string username = Console.ReadLine();
+                            User user = null;
+                            using (LoginContext context = new LoginContext())
+                            {
+                                user = context.users.FirstOrDefault(u => u.Username == username);
+                                if (user == null)
+                                {
+                                    Console.WriteLine("This user thoesn't exist");
+                                }
+                                else
+                                {
+                                    context.users.Remove(user);
+                                    int changes = context.SaveChanges();
+                                    if (changes > 0)
+                                    {
+                                        Console.WriteLine($"The user {user.Username} is deleted!");
+                                        Console.WriteLine("");
+                                    }
+                                }
+                            }
+                            ChooseAction(rolename, userId);
+                        }
+                        else
+                        {
+                            User user = null;
+                            using (LoginContext context = new LoginContext())
+                            {
+                                user = context.users.FirstOrDefault(u => u.ID == userId);
+
+                                if (user == null)
+                                {
+                                    Console.WriteLine("This user thoesn't exist");
+                                }
+                                else
+                                {
+                                    context.users.Remove(user);
+                                    int changes = context.SaveChanges();
+                                    if (changes > 0)
+                                    {
+                                        Console.WriteLine($"The user {user.Username} is deleted!");
+                                        Console.WriteLine("");
+                                    }
+                                }
+                            }
+                            Login();
+                        }
+
+                    }
+                    break;
+                case 3: //Da se smeni i ROle za domasna
+                    {
+                        Console.WriteLine("Choose option: 1.Change username, 2.Change password, 3.Cancel");
+                        try
+                        {
+                            int option = Convert.ToInt32(Console.ReadLine());
+
+                            switch (option)
+                            {
+                                case 1:
+                                    {
+                                        User user = null;
+
+                                        using (LoginContext context = new LoginContext())
+                                        {
+                                            user = context.users.FirstOrDefault(u => u.ID == userId);
+                                            if (user == null)
+                                            {
+                                                Console.WriteLine("user with this ID doesn't exist");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Enter your new username");
+                                                string newUserName = Console.ReadLine();
+                                                if (isUsernameAllowed(newUserName))
+                                                {
+                                                    user.Username = newUserName;
+
+                                                    context.users.Update(user);
+                                                    int changes = context.SaveChanges();
+                                                    if (changes > 0)
+                                                    {
+                                                        Console.WriteLine("Your new username is:" + newUserName);
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("username did't change");
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case 2:
+                                    {
+                                        User user = null;
+
+                                        using (LoginContext context = new LoginContext())
+                                        {
+                                            user = context.users.FirstOrDefault(u => u.ID == userId);
+                                            if (user == null)
+                                            {
+                                                Console.WriteLine("user with this ID doesn't exist");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Enter your new password");
+                                                string newPassword = Console.ReadLine();
+
+                                                Console.WriteLine("Confirm your new password");
+                                                string confirmNewPassword = Console.ReadLine();
+
+                                                if (isPasswordAllowed(newPassword) && newPassword == confirmNewPassword)
+                                                {
+                                                    user.Password = newPassword;
+
+                                                    context.users.Update(user);
+                                                    int changes = context.SaveChanges();
+                                                    if (changes > 0)
+                                                    {
+                                                        Console.WriteLine("password changed succsesfully:");
+                                                    }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("password did't change");
+                                                    }
+                                                }
+                                                else if (!isPasswordAllowed(newPassword))
+                                                {
+                                                    Console.WriteLine("");
+                                                    Console.WriteLine("Password is now allowed");
+                                                    ActionLoader(3, rolename, userId);
+                                                }
+                                                else if (newPassword != confirmNewPassword)
+                                                {
+                                                    Console.WriteLine("");
+                                                    Console.WriteLine("Password did't match");
+                                                    ActionLoader(3, rolename, userId);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            ChooseAction(rolename, userId);
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("selected wrong option");
+                            ActionLoader(3, rolename, userId);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
 

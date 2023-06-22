@@ -1,9 +1,4 @@
 ﻿using LoginProject.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LoginProject
 {
@@ -11,7 +6,7 @@ namespace LoginProject
     {
         public void Seed()
         {
-            using(LoginContext context = new LoginContext())
+            using (LoginContext context = new LoginContext())
             {
                 context.Database.EnsureCreated();
                 if (context.Roles.Count() == 0)

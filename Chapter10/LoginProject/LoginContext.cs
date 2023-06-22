@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using LoginProject.Models;
+﻿using LoginProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace LoginProject
@@ -7,7 +7,7 @@ namespace LoginProject
     public class LoginContext : DbContext
     {
         public DbSet<Role> Roles { get; set; }
-           
+
         public DbSet<User> users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,7 +20,7 @@ namespace LoginProject
                 .HasOne(r => r.Role)
                 .WithMany(p => p.Users)
                 .HasForeignKey(p => p.Ref_RoleID);
-               
+
         }
     }
 }
