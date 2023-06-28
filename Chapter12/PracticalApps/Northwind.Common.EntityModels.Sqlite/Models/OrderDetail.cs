@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Packt.Shared;
 
@@ -16,17 +14,17 @@ public partial class OrderDetail
 {
     [Key]
     [Column(TypeName = "INT")]
-    public long OrderId { get; set; }
+    public int OrderId { get; set; }
 
     [Key]
     [Column(TypeName = "INT")]
-    public long ProductId { get; set; }
+    public int ProductId { get; set; }
 
     [Column(TypeName = "money")]
-    public byte[] UnitPrice { get; set; } = null!;
+    public decimal[] UnitPrice { get; set; } = null!;
 
     [Column(TypeName = "smallint")]
-    public long Quantity { get; set; }
+    public int Quantity { get; set; }
 
     public double Discount { get; set; }
 

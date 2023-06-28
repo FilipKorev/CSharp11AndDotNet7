@@ -183,7 +183,7 @@ namespace LoginProject
                 case RoleName.VIP:
 
                     {
-                        Console.WriteLine("Available actions: 1. List users, 2.Delete, 3.Edit , 4.Exit");
+                        Console.WriteLine("Available actions: 1. List users, 2.Delete, 3.Edit , 4.Check role, 5.Exit");
                         Console.WriteLine("Example: 1");
 
                         try
@@ -202,7 +202,7 @@ namespace LoginProject
                 case RoleName.Guest:
                 case RoleName.Regular:
                     {
-                        Console.WriteLine("Available actions:  2.Delete,3.edit, 4.Exit");
+                        Console.WriteLine("Available actions:  2.Delete,3.edit,4.Chck role, 5.Exit");
                         Console.WriteLine("Example: 2");
 
                         try
@@ -310,7 +310,7 @@ namespace LoginProject
                     break;
                 case 3: //Da se smeni i ROle za domasna
                     {
-                        Console.WriteLine("Choose option: 1.Change username, 2.Change password, 3.Cancel");
+                        Console.WriteLine("Choose option: 1.Change username, 2.Change password,3.Change role, 4.Cancel");
                         try
                         {
                             int option = Convert.ToInt32(Console.ReadLine());
@@ -319,12 +319,12 @@ namespace LoginProject
                             {
                                 case 1:
                                     {
-                                        User user = null;
+                                        User user1 = null;
 
                                         using (LoginContext context = new LoginContext())
                                         {
-                                            user = context.users.FirstOrDefault(u => u.ID == userId);
-                                            if (user == null)
+                                            user1 = context.users.FirstOrDefault(u => u.ID == userId);
+                                            if (user1 == null)
                                             {
                                                 Console.WriteLine("user with this ID doesn't exist");
                                             }
@@ -334,9 +334,9 @@ namespace LoginProject
                                                 string newUserName = Console.ReadLine();
                                                 if (isUsernameAllowed(newUserName))
                                                 {
-                                                    user.Username = newUserName;
+                                                    user1.Username = newUserName;
 
-                                                    context.users.Update(user);
+                                                    context.users.Update(user1);
                                                     int changes = context.SaveChanges();
                                                     if (changes > 0)
                                                     {
@@ -401,6 +401,95 @@ namespace LoginProject
                                         }
                                     }
                                     break;
+                                case 3:
+                                        // CHANGE ROLE FOR ADMIN
+                                    if (rolename == RoleName.Admin)
+                                    {
+                                        Console.WriteLine("Enter the username you want to change its role");
+                                        string username = Console.ReadLine();
+                                        User user = null;
+                                        using (LoginContext context = new LoginContext())
+                                        {
+                                            user = context.users.FirstOrDefault(u => u.Username == username);
+                                            if (user == null)
+                                            {
+                                                Console.WriteLine("This user thoesn't exist");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Current role" + rolename);
+                                                Console.WriteLine("Enter the new role: 1.Admin, 2.Guest , 3.VIP , 4.Regular");
+                                                try
+                                                {
+                                                    int option1 = Convert.ToInt32(Console.ReadLine());
+                                                    switch (option1)
+                                                    {
+                                                        case 1:
+                                                           // Role newRole = RoleName.Admin;
+                                                          //  user.Role.RoleName = 
+                                                          //  context.Update(user); // Tuka ima problem
+                                                          //  context.SaveChanges();
+                                                            break;
+                                                        case 2:
+                                                            user.Role.RoleName = RoleName.Guest; //
+                                                            context.SaveChanges();
+                                                            break;
+                                                        case 3:
+                                                            user.Role.RoleName = RoleName.VIP;//
+                                                            context.SaveChanges();
+                                                            break;
+                                                        case 4:
+                                                            user.Role.RoleName = RoleName.Regular;//
+                                                            context.SaveChanges();
+                                                            break;
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                                catch (Exception)
+                                                {
+                                                    Console.WriteLine("selected wrong option");
+                                                    ActionLoader(3, rolename, userId);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else // CHANGE ROLE FOR ITSELF
+                                    {
+                                        User user = null;
+                                        using (LoginContext context = new LoginContext())
+                                        {
+                                            user = context.users.FirstOrDefault(u => u.ID == userId);
+
+                                            if (user == null)
+                                            {
+                                                Console.WriteLine("This user thoesn't exist");
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Your Current role" + rolename);
+                                                Console.WriteLine("Enter the new role:1.Guest , 2.VIP , 3.Regular");
+                                                try
+                                                {
+                                                    int option1 = Convert.ToInt32(Console.ReadLine());
+                                                    switch(option1)
+                                                    {
+                                                        case 1:
+                                                            break;
+                                                        case 2:
+                                                            break;
+                                                        case 3:
+                                                            break;
+                                                    }
+                                                }catch (Exception)
+                                                {
+                                                    Console.WriteLine("selected wrong option");
+                                                    ActionLoader(3, rolename, userId);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    break;
                                 default:
                                     break;
                             }
@@ -412,6 +501,14 @@ namespace LoginProject
                             ActionLoader(3, rolename, userId);
                         }
                     }
+                    break;
+                case 4:
+                    //check Role
+                    using (LoginContext context = new LoginContext())
+                    {
+                        Console.WriteLine(rolename);
+                    }
+                    ChooseAction(rolename, userId);   
                     break;
                 default:
                     break;
