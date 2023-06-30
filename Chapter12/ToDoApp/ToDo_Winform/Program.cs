@@ -1,3 +1,6 @@
+using Todo.Shared;
+using ToDo_Db;
+
 namespace ToDo_Winform
 {
     internal static class Program
@@ -8,6 +11,10 @@ namespace ToDo_Winform
         [STAThread]
         static void Main()
         {
+            SeedDatabase.Seed();
+
+           
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();

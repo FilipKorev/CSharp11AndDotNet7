@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ToDo_Db\ToDo_Db.csproj" />
+  </ItemGroup>
+
 </Project>
