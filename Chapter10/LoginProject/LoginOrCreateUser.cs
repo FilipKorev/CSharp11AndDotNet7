@@ -422,9 +422,27 @@ namespace LoginProject
                                                 try
                                                 {
                                                     int option1 = Convert.ToInt32(Console.ReadLine());
+                                                    //User newRole;
+                                                    //if (option1 == 1)
+                                                    //{
+                                                    //    newRole = ;
+                                                    //}
+                                                    //else if (option1 == 2)
+                                                    //{
+                                                    //    newRole = "Guest";
+                                                    //}
+                                                    //else if(option1 == 3)
+                                                    //{
+                                                    //    newRole = "VIP";
+                                                    //}
+                                                    //else if (option1 == 4) 
+                                                    //{
+                                                    //    newRole = "Regular";
+                                                    //}
                                                     switch (option1)
                                                     {
                                                         case 1:
+                                                    //        user.Role.RoleName = newRole;
                                                            // Role newRole = RoleName.Admin;
                                                           //  user.Role.RoleName = 
                                                           //  context.Update(user); // Tuka ima problem

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Packt.Shared;
 
-namespace Northwind.Common.EntityModels.Sqlite;
+
+namespace Packt.Shared;
 
 public partial class NorthwindContext : DbContext
 {

@@ -5,7 +5,11 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Common.EntityModels.Sqlite", "Northwind.Common.EntityModels.Sqlite\Northwind.Common.EntityModels.Sqlite.csproj", "{B737E05C-4E0A-4EE4-90BD-B63C4F9C03CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Common.DataContext.Sqlite", "Northwind.Common.DataContext.Sqlite\Northwind.Common.DataContext.Sqlite.csproj", "{95EC3FA0-0766-42C6-9A60-80166BAE21E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Northwind.Common.DataContext.Sqlite", "Northwind.Common.DataContext.Sqlite\Northwind.Common.DataContext.Sqlite.csproj", "{95EC3FA0-0766-42C6-9A60-80166BAE21E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Common.DataContext.SqlServer", "Northwind.Common.DataContext.SqlServer\Northwind.Common.DataContext.SqlServer.csproj", "{19698A69-1C83-4373-A764-EF5288533105}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Common.EntityModels.SqlServer", "Northwind.Common.EntityModels.SqlServer\Northwind.Common.EntityModels.SqlServer.csproj", "{9A3DBCD1-35E8-4D35-9AEA-A35659A61F1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{95EC3FA0-0766-42C6-9A60-80166BAE21E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95EC3FA0-0766-42C6-9A60-80166BAE21E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95EC3FA0-0766-42C6-9A60-80166BAE21E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19698A69-1C83-4373-A764-EF5288533105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19698A69-1C83-4373-A764-EF5288533105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19698A69-1C83-4373-A764-EF5288533105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19698A69-1C83-4373-A764-EF5288533105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A3DBCD1-35E8-4D35-9AEA-A35659A61F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A3DBCD1-35E8-4D35-9AEA-A35659A61F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A3DBCD1-35E8-4D35-9AEA-A35659A61F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A3DBCD1-35E8-4D35-9AEA-A35659A61F1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
