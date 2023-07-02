@@ -202,7 +202,7 @@ namespace LoginProject
                 case RoleName.Guest:
                 case RoleName.Regular:
                     {
-                        Console.WriteLine("Available actions:  2.Delete,3.edit,4.Chck role, 5.Exit");
+                        Console.WriteLine("Available actions:  2.Delete,3.edit,4.Check role, 5.Exit");
                         Console.WriteLine("Example: 2");
 
                         try
@@ -416,53 +416,32 @@ namespace LoginProject
                                                 Console.WriteLine("This user thoesn't exist");
                                             }
                                             else
-                                            {
-                                                Console.WriteLine("Current role" + rolename);
+                                            {                                               
+                                                //Console.WriteLine("Current role" + currentRole.ToString()); //da se prikaze role name na user
                                                 Console.WriteLine("Enter the new role: 1.Admin, 2.Guest , 3.VIP , 4.Regular");
                                                 try
                                                 {
                                                     int option1 = Convert.ToInt32(Console.ReadLine());
-                                                    //User newRole;
-                                                    //if (option1 == 1)
-                                                    //{
-                                                    //    newRole = ;
-                                                    //}
-                                                    //else if (option1 == 2)
-                                                    //{
-                                                    //    newRole = "Guest";
-                                                    //}
-                                                    //else if(option1 == 3)
-                                                    //{
-                                                    //    newRole = "VIP";
-                                                    //}
-                                                    //else if (option1 == 4) 
-                                                    //{
-                                                    //    newRole = "Regular";
-                                                    //}
+
                                                     switch (option1)
                                                     {
                                                         case 1:
-                                                    //        user.Role.RoleName = newRole;
-                                                           // Role newRole = RoleName.Admin;
-                                                          //  user.Role.RoleName = 
-                                                          //  context.Update(user); // Tuka ima problem
-                                                          //  context.SaveChanges();
-                                                            break;
-                                                        case 2:
-                                                            user.Role.RoleName = RoleName.Guest; //
-                                                            context.SaveChanges();
-                                                            break;
-                                                        case 3:
-                                                            user.Role.RoleName = RoleName.VIP;//
-                                                            context.SaveChanges();
-                                                            break;
+                                                        case 2: 
+                                                        case 3: 
                                                         case 4:
-                                                            user.Role.RoleName = RoleName.Regular;//
+                                                            var RoleID = context.Roles.FirstOrDefault(x => (int)x.RoleName == option1);
+
+                                                            user.Ref_RoleID = RoleID.RoleID;
+                                                            context.users.Update(user);
                                                             context.SaveChanges();
                                                             break;
+
                                                         default:
+                                                            Console.WriteLine("selected wrong option");
+                                                            ActionLoader(3, rolename, userId);
                                                             break;
                                                     }
+                                                    
                                                 }
                                                 catch (Exception)
                                                 {
@@ -486,20 +465,30 @@ namespace LoginProject
                                             else
                                             {
                                                 Console.WriteLine("Your Current role" + rolename);
-                                                Console.WriteLine("Enter the new role:1.Guest , 2.VIP , 3.Regular");
+                                                Console.WriteLine("Enter the new role:2.Guest , 4.Regular");
                                                 try
                                                 {
                                                     int option1 = Convert.ToInt32(Console.ReadLine());
-                                                    switch(option1)
+                                                    switch (option1)
                                                     {
-                                                        case 1:
-                                                            break;
                                                         case 2:
+                                                        case 4:
+                                                            var RoleID = context.Roles.FirstOrDefault(x => (int)x.RoleName == option1);
+
+                                                            user.Ref_RoleID = RoleID.RoleID;
+                                                            context.users.Update(user);
+                                                            context.SaveChanges();
                                                             break;
-                                                        case 3:
+
+                                                        default:
+                                                            Console.WriteLine("selected wrong option");
+                                                            ActionLoader(3, rolename, userId);
                                                             break;
                                                     }
-                                                }catch (Exception)
+
+
+                                                }
+                                                catch (Exception)
                                                 {
                                                     Console.WriteLine("selected wrong option");
                                                     ActionLoader(3, rolename, userId);
@@ -522,10 +511,7 @@ namespace LoginProject
                     break;
                 case 4:
                     //check Role
-                    using (LoginContext context = new LoginContext())
-                    {
-                        Console.WriteLine(rolename);
-                    }
+                    Console.WriteLine(rolename);
                     ChooseAction(rolename, userId);   
                     break;
                 default:
